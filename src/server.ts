@@ -8,5 +8,5 @@ app.use(express.json());
 app.use("/products", ProductRouter)
 
 app.listen(PORT, () => {
-    console.log(`Server is listening on http://localhost:${PORT}/products`);
+    console.log(`Server is on PORT ${PORT}`);
 })

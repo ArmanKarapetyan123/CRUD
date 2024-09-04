@@ -3,7 +3,7 @@ import { Request, Response } from "express";
 import {createId , readProduct, writeProduct} from "../services/utils/utils"
 import {Product, ProductJson} from "../services/Interfaces/productInterface"
 
-const databasePath : string = "../../../database/products.json" ;
+const databasePath : string = "database/products.json" ;
 
 export const getProducts = async (req: Request, res: Response) => {
     try {
@@ -20,9 +20,7 @@ export const getProducts = async (req: Request, res: Response) => {
         }
         res.status(200).json(products)
     } catch (error) {
-        if (error instanceof Error) {
-            res.status(500).json({message : error.message})
-        }
+        res.status(500).json({message : "Server Error"})
     }
 }
 
@@ -37,9 +35,7 @@ export const getProductById = async (req: Request, res: Response) => {
             res.status(404).json({message : "Product not found"})
         }
     } catch (error) {
-        if (error instanceof Error) {
-            res.status(404).json({message : error.message})
-        }
+        res.status(500).json({message : "Server Error"})
     }
 }
 
@@ -64,9 +60,7 @@ export const createProduct = async(req: Request, res: Response) : Promise<void>=
 
         res.status(201).json(newProduct);
     }catch (error) {
-        if (error instanceof Error) {
-            res.status(404).json({message : error.message})
-        }
+        res.status(500).json({message : "Server Error"})
     }
 }
 
@@ -107,7 +101,7 @@ export const updateProductById = async(res:Response, req:Request) => {
 
         res.status(201).json(finallUpdatedProduct);
     }catch (error) {
-            res.status(404).json({message : error.message})
+        res.status(500).json({message : "Server Error"})
     }
 }
 
@@ -129,6 +123,6 @@ export const deleteProductById = async ( req: Request, res:Response ) => {
         writeProduct(databasePath, jsonData);
         res.status(201).json(deletedProduct);
     }catch (error) {
-            res.status(404).json({message : error.message})
+            res.status(500).json({message : "Server Error"})
     }
 }

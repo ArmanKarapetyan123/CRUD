@@ -1,15 +1,11 @@
 import fs from 'fs';
-import path from 'path';
 import { ProductJson } from '../Interfaces/productInterface';
-import { fileURLToPath } from 'url';
-
-const __filename = fileURLToPath(import.meta.url);
-
-const __dirname = path.dirname(__filename);
+import path from "node:path";
+const dirname: string = path.resolve();
 
 export const readProduct = (filePath: string) : ProductJson =>  {
 
-    const jsonPath = path.join(__dirname, ...filePath.split('/'));
+    const jsonPath = path.join(dirname, filePath);
     try {
         const data = fs.readFileSync(jsonPath, 'utf8');
         const parsedData = JSON.parse(data) as ProductJson;
@@ -19,7 +15,7 @@ export const readProduct = (filePath: string) : ProductJson =>  {
     }
 }
 export const writeProduct = (filePath: string, data: ProductJson) : void =>  {
-    const jsonPath = path.join(__dirname, ...filePath.split('/'));
+    const jsonPath = path.join(__dirname, filePath);
     
     try {
         const jsonData = JSON.stringify(data, null, 2);
